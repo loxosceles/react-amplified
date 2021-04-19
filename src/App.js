@@ -1,44 +1,44 @@
-import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
 import './App.css';
-import { DataStore } from '@aws-amplify/datastore';
+import { DataStore, Predicates } from '@aws-amplify/datastore';
 import { RawSequence } from './models';
 
+async function getRawSequences() {
+  console.log('Inside UseEffect');
+  try {
+    return await DataStore.query(RawSequence, Predicates.ALL);
+    // console.log(
+    //   'RawSequences retrieved successfully!',
+    //   JSON.stringify(response, null, 2)
+    // );
+  } catch (error) {
+    console.log('Error retrieving RawSequences ', error);
+    return { message: 'Nothing could be retrieved!' };
+  }
+  // return response;
+}
+
 function App() {
-  const [data, setData] = useState(null);
+  const [rawSequences, setRawSequences] = useState(null);
 
   useEffect(() => {
-    console.log('Inside UseEffect');
-    return async () => {
-      const response = await DataStore.save(
-        new RawSequence({
-          index: 1021,
-          is_labeling_candidate: true,
-          is_useless: true,
-          patientID: 'a3f4095e-39de-43d2-baf4-f8c16f0f6f4d',
-        })
-      );
-      setData(response);
-    };
+    getRawSequences().then((res) => {
+      setRawSequences(res);
+    });
   }, []);
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-      {data && <div>{JSON.stringify(data)}</div>}
+      <h2>Raw Sequences</h2>
+      {rawSequences &&
+        rawSequences.map((rawSequence) => {
+          return (
+            <>
+              <div>{`Index: ${rawSequence.index}`}</div>
+              <div>{`Patient ID: ${rawSequence.patientID}`}</div>
+            </>
+          );
+        })}
     </div>
   );
 }
