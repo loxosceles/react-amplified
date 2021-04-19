@@ -23,7 +23,7 @@ function App() {
 
   useEffect(() => {
     getRawSequences().then((res) => {
-      setRawSequences(res);
+      setRawSequences(res.data);
     });
   }, []);
 
