@@ -8,9 +8,10 @@ type RawSequence @model @auth(rules: [{allow: public}]) {
 
 type Patient @model @auth(rules: [{allow: public}]) {
   id: ID!
-  inde: String
+  index: String
   pathological: String
   PatientDataCollections: [PatientDataCollection] @connection(keyName: "byPatient", fields: ["id"])
+  name: String
 }
 
 type DataCollection @model @auth(rules: [{allow: public}]) {
@@ -27,3 +28,4 @@ type PatientDataCollection @model(queries: null) @key(name: "byPatient", fields:
   patient: Patient! @connection(fields: ["patientID"])
   datacollection: DataCollection! @connection(fields: ["datacollectionID"])
 }
+ 

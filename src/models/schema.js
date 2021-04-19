@@ -74,8 +74,8 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "inde": {
-                    "name": "inde",
+                "index": {
+                    "name": "index",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -101,6 +101,13 @@ export const schema = {
                         "connectionType": "HAS_MANY",
                         "associatedWith": "patient"
                     }
+                },
+                "name": {
+                    "name": "name",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
                 }
             },
             "syncable": true,
@@ -288,5 +295,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "8b45887ad2e055358ba71a643ae717cb"
+    "version": "72d6f467abbe3fe9070d9830ab5a647d"
 };

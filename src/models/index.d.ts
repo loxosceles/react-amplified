@@ -16,9 +16,10 @@ export declare class RawSequence {
 
 export declare class Patient {
   readonly id: string;
-  readonly inde?: string;
+  readonly index?: string;
   readonly pathological?: string;
   readonly PatientDataCollections?: (PatientDataCollection | null)[];
+  readonly name?: string;
   constructor(init: ModelInit<Patient>);
   static copyOf(source: Patient, mutator: (draft: MutableModel<Patient>) => MutableModel<Patient> | void): Patient;
 }
