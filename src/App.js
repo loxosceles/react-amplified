@@ -1,42 +1,42 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import { DataStore, Predicates } from '@aws-amplify/datastore';
-import { RawSequence } from './models';
+import { Patient } from './models';
 
-async function getRawSequences() {
+async function getPatients() {
   console.log('Inside UseEffect');
   try {
-    return await DataStore.query(RawSequence, Predicates.ALL);
+    return await DataStore.query(Patient, Predicates.ALL);
     // console.log(
     //   'RawSequences retrieved successfully!',
     //   JSON.stringify(response, null, 2)
     // );
   } catch (error) {
-    console.log('Error retrieving RawSequences ', error);
+    console.log('Error retrieving Patient', error);
     return { message: 'Nothing could be retrieved!' };
   }
   // return response;
 }
 
 function App() {
-  const [rawSequences, setRawSequences] = useState(null);
+  const [patients, setPatients] = useState(null);
 
   useEffect(() => {
-    getRawSequences().then((res) => {
-      setRawSequences(res);
+    getPatients().then((res) => {
+      setPatients(res);
     });
   }, []);
 
   return (
     <div className="App">
-      <h2>Raw Sequences</h2>
-      {rawSequences &&
-        rawSequences.map((rawSequence) => {
+      <h2>Patients</h2>
+      {patients &&
+        patients.map((patient) => {
           return (
             <>
-              <div>{`Name: ${rawSequence.name}`}</div>
-              <div>{`Index: ${rawSequence.index}`}</div>
-              <div>{`Is pathological: ${rawSequence.pathological}`}</div>
+              <div>{`Name: ${patient.name}`}</div>
+              <div>{`Index: ${patient.index}`}</div>
+              <div>{`Is pathological: ${patient.pathological}`}</div>
             </>
           );
         })}
