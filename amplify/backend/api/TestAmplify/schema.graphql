@@ -1,0 +1,29 @@
+type RawSequence @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  index: Int
+  is_labeling_candidate: Boolean
+  is_useless: Boolean
+  p: String
+}
+
+type Patient @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  inde: String
+  pathological: String
+  PatientDataCollections: [PatientDataCollection] @connection(keyName: "byPatient", fields: ["id"])
+}
+
+type DataCollection @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String
+  description: String
+  patients: [PatientDataCollection] @connection(keyName: "byDataCollection", fields: ["id"])
+}
+
+type PatientDataCollection @model(queries: null) @key(name: "byPatient", fields: ["patientID", "datacollectionID"]) @key(name: "byDataCollection", fields: ["datacollectionID", "patientID"]) @auth(rules: [{allow: public}, {allow: public}]) {
+  id: ID!
+  patientID: ID!
+  datacollectionID: ID!
+  patient: Patient! @connection(fields: ["patientID"])
+  datacollection: DataCollection! @connection(fields: ["datacollectionID"])
+}
