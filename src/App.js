@@ -34,8 +34,9 @@ function App() {
         rawSequences.map((rawSequence) => {
           return (
             <>
+              <div>{`Name: ${rawSequence.name}`}</div>
               <div>{`Index: ${rawSequence.index}`}</div>
-              <div>{`Patient ID: ${rawSequence.patientID}`}</div>
+              <div>{`Is pathological: ${rawSequence.pathological}`}</div>
             </>
           );
         })}
